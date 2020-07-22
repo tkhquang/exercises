@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
 
 main () {
-  local word="${1^^}"
+  local -u word="$1"
   local -i score=0
 
   for (( i=0; i<${#word}; i++ )); do
-    case "${word:$i:1}" in
-      A| E| I| O| U| L| N| R| S| T)
+    case "${word:i:1}" in
+      [AEIOULNRST])
         (( score+=1 ))
       ;;
-      D| G)
+      [DG])
         (( score+=2 ))
       ;;
-      B| C| M| P)
+      [BCMP])
         (( score+=3 ))
       ;;
-      F| H| V| W| Y)
+      [FHVWY])
         (( score+=4 ))
       ;;
-      K)
+      [K])
         (( score+=5 ))
       ;;
-      J| X)
+      [JX])
         (( score+=8 ))
       ;;
-      Q| Z)
+      [QZ])
         (( score+=10 ))
       ;;
       *)
