@@ -9,15 +9,13 @@ fn sort(word: &str) -> Vec<char> {
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'a str> {
     let word = word.to_lowercase();
     let sorted_word = sort(&word);
-    
-    let anagrams: HashSet<&str> = possible_anagrams
+
+    possible_anagrams
         .iter()
-        .cloned()
+        .copied()
         .filter(|&possible_anagram| {
             let possible_anagram = possible_anagram.to_lowercase();
             sort(&possible_anagram) == sorted_word && possible_anagram != word
         })
-        .collect();
-    
-    anagrams
+        .collect()
 }
