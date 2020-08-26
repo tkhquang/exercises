@@ -1,4 +1,9 @@
-local function getName()
+local Robot = {}
+Robot.__index = Robot
+
+local usedNames = {}
+
+local function generateRandomName()
   local a = ("A"):byte()
 
   return tostring(a + math.random(0, 25)):char()
@@ -8,17 +13,25 @@ local function getName()
     .. tostring(math.random(0, 9))
 end
 
-local Robot = {}
+local function getName()
+  local new = ""
+
+  repeat
+    new = generateRandomName()
+  until not usedNames[new]
+
+  usedNames[new] = true
+  return new
+end
 
 function Robot:new()
-  local robot = {
-    name = getName(),
-    reset = function(self)
-      self.name = getName()
-    end
-  }
+  return setmetatable({
+    name = getName()
+  }, self)
+end
 
-  return robot
+function Robot:reset()
+  self.name = getName()
 end
 
 return Robot
