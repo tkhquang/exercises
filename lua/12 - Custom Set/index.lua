@@ -13,7 +13,10 @@ function Set:new(...)
 end
 
 function Set:is_empty()
-  return #self == 0
+  for _ in pairs(self) do
+    return false
+  end
+  return true
 end
 
 function Set:contains(elem)
